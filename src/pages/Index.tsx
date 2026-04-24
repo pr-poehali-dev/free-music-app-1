@@ -39,6 +39,7 @@ const PLAYLISTS = [
 
 const SECTIONS = [
   { id: "home", label: "Главная", icon: "Home" },
+  { id: "mywave", label: "Моя волна", icon: "Radio" },
   { id: "search", label: "Поиск", icon: "Search" },
   { id: "library", label: "Библиотека", icon: "Library" },
   { id: "playlists", label: "Плейлисты", icon: "ListMusic" },
