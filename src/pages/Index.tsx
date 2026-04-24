@@ -261,28 +261,27 @@ export default function Index() {
                 ))}
               </div>
 
-              <h2 className="text-xl font-bold mb-4 text-white">Ваши плейлисты</h2>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                {PLAYLISTS.map((pl) => (
-                  <button key={pl.id} onClick={() => setSection("playlists")} className="group rounded-xl overflow-hidden card-hover text-left" style={{ background: "var(--bg-card)" }}>
-                    <div className="relative">
-                      <img src={pl.cover} alt={pl.name} className="w-full aspect-square object-cover" />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all" />
-                      <div className="absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center play-btn-overlay shadow-xl" style={{ background: "var(--green)" }}>
-                        <Icon name="Play" size={16} className="text-black ml-0.5" />
-                      </div>
-                    </div>
-                    <div className="p-3">
-                      <p className="font-semibold text-white text-sm truncate">{pl.name}</p>
-                      <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>{pl.count} треков</p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              <h2 className="text-xl font-bold mb-4 text-white">Рекомендуем</h2>
-              <TrackList tracks={DEMO_TRACKS.slice(0, 4)} currentTrack={currentTrack} isPlaying={isPlaying} onTrackClick={handleTrackClick} onLike={toggleLike} />
+              {/* Моя волна — баннер */}
+              <button
+                onClick={() => setSection("mywave")}
+                className="w-full flex items-center gap-5 rounded-2xl p-5 mb-6 text-left transition-all hover:brightness-110"
+                style={{ background: "linear-gradient(135deg, #0f3460 0%, #1a1a2e 40%, #16213e 100%)" }}
+              >
+                <div className="w-14 h-14 rounded-full flex items-center justify-center shrink-0 shadow-lg" style={{ background: "linear-gradient(135deg, #1DB954, #0099cc)" }}>
+                  <Icon name="Radio" size={26} className="text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-lg font-bold text-white">Моя волна</p>
+                  <p className="text-sm mt-0.5" style={{ color: "rgba(255,255,255,0.6)" }}>Бесконечный поток музыки под твоё настроение</p>
+                </div>
+                <Icon name="ChevronRight" size={20} style={{ color: "rgba(255,255,255,0.5)" }} />
+              </button>
             </div>
+          )}
+
+          {/* MY WAVE */}
+          {section === "mywave" && (
+            <MyWave tracks={allTracks} currentTrack={currentTrack} isPlaying={isPlaying} onTrackClick={handleTrackClick} onLike={toggleLike} />
           )}
 
           {/* SEARCH */}
@@ -520,6 +519,105 @@ export default function Index() {
           <input type="range" min={0} max={100} value={volume} onChange={handleVolumeChange} className="volume-bar w-24" style={{ background: volumeStyle }} />
         </div>
       </div>
+    </div>
+  );
+}
+
+const MOODS = [
+  { id: "chill", label: "Расслабленное", emoji: "🌙", gradient: "linear-gradient(135deg, #1a1a2e, #16213e)" },
+  { id: "focus", label: "Фокус", emoji: "🎯", gradient: "linear-gradient(135deg, #0f3460, #1a1a2e)" },
+  { id: "energy", label: "Энергия", emoji: "⚡", gradient: "linear-gradient(135deg, #2d1b00, #1a0a00)" },
+  { id: "happy", label: "Радость", emoji: "☀️", gradient: "linear-gradient(135deg, #1a2e00, #0a1a00)" },
+];
+
+function MyWave({ tracks, currentTrack, isPlaying, onTrackClick, onLike }: {
+  tracks: Track[];
+  currentTrack: Track | null;
+  isPlaying: boolean;
+  onTrackClick: (t: Track) => void;
+  onLike: (id: number) => void;
+}) {
+  const [activeMood, setActiveMood] = useState("chill");
+  const [waveActive, setWaveActive] = useState(false);
+  const [waveQueue, setWaveQueue] = useState<Track[]>([]);
+
+  const startWave = () => {
+    const shuffled = [...tracks].sort(() => Math.random() - 0.5);
+    setWaveQueue(shuffled);
+    setWaveActive(true);
+    if (shuffled.length > 0) onTrackClick(shuffled[0]);
+  };
+
+  return (
+    <div>
+      {/* Шапка */}
+      <div className="rounded-2xl p-6 mb-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0f3460 0%, #1a1a2e 60%, #0a0a1a 100%)" }}>
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 70% 50%, #1DB954 0%, transparent 60%)" }} />
+        <div className="relative z-10 flex items-center gap-5">
+          <div className="relative">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl" style={{ background: "linear-gradient(135deg, #1DB954, #0099cc)" }}>
+              <Icon name="Radio" size={36} className="text-white" />
+            </div>
+            {waveActive && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full border-2 border-black" style={{ background: "var(--green)", animation: "pulse-green 1.5s infinite" }} />
+            )}
+          </div>
+          <div className="flex-1">
+            <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>Персональная станция</p>
+            <h1 className="text-4xl font-bold text-white mb-1">Моя волна</h1>
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>Бесконечный поток под твоё настроение</p>
+          </div>
+          <button
+            onClick={startWave}
+            className="flex items-center gap-2 px-6 py-3 rounded-full font-bold text-black text-sm hover:scale-105 transition-transform shadow-xl"
+            style={{ background: "var(--green)" }}
+          >
+            <Icon name={waveActive ? "RefreshCw" : "Play"} size={16} />
+            {waveActive ? "Обновить" : "Запустить"}
+          </button>
+        </div>
+      </div>
+
+      {/* Настроение */}
+      <h2 className="text-base font-semibold mb-3 text-white">Выбери настроение</h2>
+      <div className="grid grid-cols-4 gap-3 mb-8">
+        {MOODS.map((mood) => (
+          <button
+            key={mood.id}
+            onClick={() => { setActiveMood(mood.id); setWaveActive(false); }}
+            className="rounded-xl p-4 text-left transition-all hover:brightness-110"
+            style={{
+              background: mood.gradient,
+              border: activeMood === mood.id ? "2px solid var(--green)" : "2px solid transparent",
+              boxShadow: activeMood === mood.id ? "0 0 12px rgba(29,185,84,0.25)" : "none",
+            }}
+          >
+            <span className="text-2xl block mb-2">{mood.emoji}</span>
+            <p className="text-sm font-semibold text-white">{mood.label}</p>
+          </button>
+        ))}
+      </div>
+
+      {/* Очередь / призыв */}
+      {waveActive && waveQueue.length > 0 ? (
+        <>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="flex gap-0.5">
+              <div className="w-1 h-4 rounded-full equalizer-bar" style={{ background: "var(--green)" }} />
+              <div className="w-1 h-4 rounded-full equalizer-bar" style={{ background: "var(--green)" }} />
+              <div className="w-1 h-4 rounded-full equalizer-bar" style={{ background: "var(--green)" }} />
+            </div>
+            <h2 className="text-base font-semibold text-white">Сейчас в волне</h2>
+          </div>
+          <TrackList tracks={waveQueue} currentTrack={currentTrack} isPlaying={isPlaying} onTrackClick={onTrackClick} onLike={onLike} />
+        </>
+      ) : (
+        <div className="text-center py-12 rounded-xl" style={{ background: "var(--bg-card)" }}>
+          <Icon name="Radio" size={40} className="mx-auto mb-3" style={{ color: "var(--text-muted)" }} />
+          <p className="font-semibold text-white mb-1">Нажми «Запустить»</p>
+          <p className="text-sm" style={{ color: "var(--text-muted)" }}>Мы подберём треки под выбранное настроение</p>
+        </div>
+      )}
     </div>
   );
 }
