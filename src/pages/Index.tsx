@@ -41,8 +41,6 @@ const SECTIONS = [
   { id: "home", label: "Главная", icon: "Home" },
   { id: "search", label: "Поиск", icon: "Search" },
   { id: "library", label: "Библиотека", icon: "Library" },
-  { id: "playlists", label: "Плейлисты", icon: "ListMusic" },
-  { id: "favorites", label: "Избранное", icon: "Heart" },
   { id: "history", label: "История", icon: "History" },
 ];
 
@@ -325,88 +323,16 @@ export default function Index() {
 
           {/* LIBRARY */}
           {section === "library" && (
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h1 className="text-3xl font-bold text-white">Библиотека</h1>
-                  <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>{allTracks.length} треков</p>
-                </div>
-                <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white hover:brightness-110 transition-all" style={{ background: "var(--green)" }}>
-                  <Icon name="Plus" size={16} />
-                  Добавить
-                </button>
-              </div>
-              <div
-                className="mb-4 rounded-xl border-2 border-dashed flex items-center justify-center gap-3 p-5 cursor-pointer transition-all"
-                style={{ borderColor: isDragging ? "var(--green)" : "#2a2a2a", background: isDragging ? "rgba(29,185,84,0.05)" : "transparent" }}
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <Icon name="Upload" size={20} style={{ color: "var(--green)" }} />
-                <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                  Перетащи треки сюда или нажми (.mp3, .flac, .wav)
-                </span>
-              </div>
-              <TrackList tracks={allTracks} currentTrack={currentTrack} isPlaying={isPlaying} onTrackClick={handleTrackClick} onLike={toggleLike} />
-            </div>
-          )}
-
-          {/* PLAYLISTS */}
-          {section === "playlists" && (
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <h1 className="text-3xl font-bold text-white">Плейлисты</h1>
-                <button className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border border-white/20 text-white hover:bg-white/10 transition-all">
-                  <Icon name="Plus" size={16} />
-                  Создать
-                </button>
-              </div>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {PLAYLISTS.map((pl) => (
-                  <div key={pl.id} className="group rounded-xl overflow-hidden card-hover cursor-pointer" style={{ background: "var(--bg-card)" }}>
-                    <div className="relative">
-                      <img src={pl.cover} alt={pl.name} className="w-full aspect-square object-cover" />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all" />
-                      <div className="absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center play-btn-overlay shadow-xl" style={{ background: "var(--green)" }}>
-                        <Icon name="Play" size={16} className="text-white ml-0.5" />
-                      </div>
-                    </div>
-                    <div className="p-3">
-                      <p className="font-semibold text-white text-sm truncate">{pl.name}</p>
-                      <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>{pl.count} треков</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* FAVORITES */}
-          {section === "favorites" && (
-            <div>
-              <div className="flex items-center gap-5 mb-6">
-                <div className="w-36 h-36 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #3b0080, #7c5cfc)" }}>
-                  <Icon name="Heart" size={50} className="text-white" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--text-muted)" }}>Плейлист</p>
-                  <h1 className="text-4xl font-bold text-white mb-2">Любимые треки</h1>
-                  <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{likedTracks.length} треков</p>
-                  {likedTracks.length > 0 && (
-                    <button onClick={() => handleTrackClick(likedTracks[0])} className="mt-3 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform" style={{ background: "var(--green)" }}>
-                      <Icon name="Play" size={20} className="text-white ml-0.5" />
-                    </button>
-                  )}
-                </div>
-              </div>
-              {likedTracks.length > 0 ? (
-                <TrackList tracks={likedTracks} currentTrack={currentTrack} isPlaying={isPlaying} onTrackClick={handleTrackClick} onLike={toggleLike} />
-              ) : (
-                <div className="text-center py-16">
-                  <Icon name="Heart" size={48} className="mx-auto mb-3" style={{ color: "var(--text-muted)" }} />
-                  <p style={{ color: "var(--text-secondary)" }}>Нажми ♥ на треке, чтобы добавить в избранное</p>
-                </div>
-              )}
-            </div>
+            <LibrarySection
+              allTracks={allTracks}
+              likedTracks={likedTracks}
+              currentTrack={currentTrack}
+              isPlaying={isPlaying}
+              isDragging={isDragging}
+              onTrackClick={handleTrackClick}
+              onLike={toggleLike}
+              onUploadClick={() => fileInputRef.current?.click()}
+            />
           )}
 
           {/* RECOMMENDATIONS */}
@@ -586,6 +512,130 @@ function MyWave({ tracks, currentTrack, isPlaying, onTrackClick, onLike }: {
           <p className="font-semibold text-white mb-1">Нажми «Запустить»</p>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>Мы подберём треки под выбранное настроение</p>
         </div>
+      )}
+    </div>
+  );
+}
+
+const LIBRARY_TABS = [
+  { id: "tracks", label: "Треки", icon: "Music" },
+  { id: "playlists", label: "Плейлисты", icon: "ListMusic" },
+  { id: "favorites", label: "Избранное", icon: "Heart" },
+];
+
+function LibrarySection({ allTracks, likedTracks, currentTrack, isPlaying, isDragging, onTrackClick, onLike, onUploadClick }: {
+  allTracks: Track[];
+  likedTracks: Track[];
+  currentTrack: Track | null;
+  isPlaying: boolean;
+  isDragging: boolean;
+  onTrackClick: (t: Track) => void;
+  onLike: (id: number) => void;
+  onUploadClick: () => void;
+}) {
+  const [tab, setTab] = useState("tracks");
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-5">
+        <h1 className="text-3xl font-bold text-white">Библиотека</h1>
+        <button onClick={onUploadClick} className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white hover:brightness-110 transition-all" style={{ background: "var(--green)" }}>
+          <Icon name="Plus" size={16} />
+          Добавить
+        </button>
+      </div>
+
+      {/* Вкладки */}
+      <div className="flex gap-1 mb-5 p-1 rounded-xl w-fit" style={{ background: "var(--bg-card)" }}>
+        {LIBRARY_TABS.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setTab(t.id)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+            style={{
+              background: tab === t.id ? "var(--green)" : "transparent",
+              color: tab === t.id ? "white" : "var(--text-secondary)",
+            }}
+          >
+            <Icon name={t.icon} size={15} />
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Треки */}
+      {tab === "tracks" && (
+        <>
+          <div
+            className="mb-4 rounded-xl border-2 border-dashed flex items-center justify-center gap-3 p-5 cursor-pointer transition-all"
+            style={{ borderColor: isDragging ? "var(--green)" : "#2a2a2a", background: isDragging ? "rgba(124,92,252,0.05)" : "transparent" }}
+            onClick={onUploadClick}
+          >
+            <Icon name="Upload" size={20} style={{ color: "var(--green)" }} />
+            <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              Перетащи треки сюда или нажми (.mp3, .flac, .wav)
+            </span>
+          </div>
+          <TrackList tracks={allTracks} currentTrack={currentTrack} isPlaying={isPlaying} onTrackClick={onTrackClick} onLike={onLike} />
+        </>
+      )}
+
+      {/* Плейлисты */}
+      {tab === "playlists" && (
+        <>
+          <div className="flex justify-end mb-4">
+            <button className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border border-white/20 text-white hover:bg-white/10 transition-all">
+              <Icon name="Plus" size={16} />
+              Создать
+            </button>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {PLAYLISTS.map((pl) => (
+              <div key={pl.id} className="group rounded-xl overflow-hidden card-hover cursor-pointer" style={{ background: "var(--bg-card)" }}>
+                <div className="relative">
+                  <img src={pl.cover} alt={pl.name} className="w-full aspect-square object-cover" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all" />
+                  <div className="absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center play-btn-overlay shadow-xl" style={{ background: "var(--green)" }}>
+                    <Icon name="Play" size={16} className="text-white ml-0.5" />
+                  </div>
+                </div>
+                <div className="p-3">
+                  <p className="font-semibold text-white text-sm truncate">{pl.name}</p>
+                  <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>{pl.count} треков</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* Избранное */}
+      {tab === "favorites" && (
+        <>
+          <div className="flex items-center gap-5 mb-6">
+            <div className="w-28 h-28 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #3b0080, #7c5cfc)" }}>
+              <Icon name="Heart" size={40} className="text-white" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--text-muted)" }}>Плейлист</p>
+              <h2 className="text-2xl font-bold text-white mb-1">Любимые треки</h2>
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{likedTracks.length} треков</p>
+              {likedTracks.length > 0 && (
+                <button onClick={() => onTrackClick(likedTracks[0])} className="mt-3 w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform" style={{ background: "var(--green)" }}>
+                  <Icon name="Play" size={16} className="text-white ml-0.5" />
+                </button>
+              )}
+            </div>
+          </div>
+          {likedTracks.length > 0 ? (
+            <TrackList tracks={likedTracks} currentTrack={currentTrack} isPlaying={isPlaying} onTrackClick={onTrackClick} onLike={onLike} />
+          ) : (
+            <div className="text-center py-16">
+              <Icon name="Heart" size={48} className="mx-auto mb-3" style={{ color: "var(--text-muted)" }} />
+              <p style={{ color: "var(--text-secondary)" }}>Нажми ♥ на треке, чтобы добавить в избранное</p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
