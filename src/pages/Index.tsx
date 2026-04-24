@@ -524,10 +524,10 @@ export default function Index() {
 }
 
 const MOODS = [
-  { id: "chill", label: "Расслабленное", emoji: "🌙", gradient: "linear-gradient(135deg, #0d0d2b, #12103a)" },
-  { id: "focus", label: "Фокус", emoji: "🎯", gradient: "linear-gradient(135deg, #0a0a20, #1a0e3a)" },
-  { id: "energy", label: "Энергия", emoji: "⚡", gradient: "linear-gradient(135deg, #1a0a2e, #2a0050)" },
-  { id: "happy", label: "Радость", emoji: "☀️", gradient: "linear-gradient(135deg, #0e0a2a, #180a40)" },
+  { id: "chill", label: "Расслабленное", icon: "Moon", gradient: "linear-gradient(135deg, #0d0d2b, #12103a)" },
+  { id: "focus", label: "Фокус", icon: "Target", gradient: "linear-gradient(135deg, #0a0a20, #1a0e3a)" },
+  { id: "energy", label: "Энергия", icon: "Zap", gradient: "linear-gradient(135deg, #1a0a2e, #2a0050)" },
+  { id: "happy", label: "Радость", icon: "Sun", gradient: "linear-gradient(135deg, #0e0a2a, #180a40)" },
 ];
 
 function MyWave({ tracks, currentTrack, isPlaying, onTrackClick, onLike }: {
@@ -592,7 +592,7 @@ function MyWave({ tracks, currentTrack, isPlaying, onTrackClick, onLike }: {
               boxShadow: activeMood === mood.id ? "0 0 12px rgba(29,185,84,0.25)" : "none",
             }}
           >
-            <span className="text-2xl block mb-2">{mood.emoji}</span>
+            <Icon name={mood.icon} size={22} className="mb-2" style={{ color: "var(--green)" }} />
             <p className="text-sm font-semibold text-white">{mood.label}</p>
           </button>
         ))}
