@@ -204,7 +204,7 @@ export default function Index() {
         <aside className="w-60 flex flex-col gap-2 p-3 overflow-y-auto shrink-0" style={{ background: "var(--bg-sidebar)" }}>
           <div className="flex items-center gap-2 px-3 py-4 mb-1">
             <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: "var(--green)" }}>
-              <Icon name="Music2" size={16} className="text-black" />
+              <Icon name="Music2" size={16} className="text-white" />
             </div>
             <span className="text-xl font-bold tracking-tight text-white">Волна</span>
           </div>
@@ -255,7 +255,7 @@ export default function Index() {
                     <img src={track.cover} alt={track.title} className="w-14 h-14 object-cover shrink-0" />
                     <span className="text-sm font-semibold text-white text-left pr-2 line-clamp-2 flex-1">{track.title}</span>
                     <div className="mr-3 w-9 h-9 rounded-full flex items-center justify-center play-btn-overlay shrink-0 shadow-lg" style={{ background: "var(--green)" }}>
-                      <Icon name="Play" size={15} className="text-black ml-0.5" />
+                      <Icon name="Play" size={15} className="text-white ml-0.5" />
                     </div>
                   </button>
                 ))}
@@ -265,9 +265,9 @@ export default function Index() {
               <button
                 onClick={() => setSection("mywave")}
                 className="w-full flex items-center gap-5 rounded-2xl p-5 mb-6 text-left transition-all hover:brightness-110"
-                style={{ background: "linear-gradient(135deg, #0f3460 0%, #1a1a2e 40%, #16213e 100%)" }}
+                style={{ background: "linear-gradient(135deg, #0d0a2e 0%, #12103a 40%, #080818 100%)" }}
               >
-                <div className="w-14 h-14 rounded-full flex items-center justify-center shrink-0 shadow-lg" style={{ background: "linear-gradient(135deg, #1DB954, #0099cc)" }}>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center shrink-0 shadow-lg" style={{ background: "linear-gradient(135deg, #7c5cfc, #3b82f6)" }}>
                   <Icon name="Radio" size={26} className="text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -333,7 +333,7 @@ export default function Index() {
                   <h1 className="text-3xl font-bold text-white">Библиотека</h1>
                   <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>{allTracks.length} треков</p>
                 </div>
-                <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-black hover:brightness-110 transition-all" style={{ background: "var(--green)" }}>
+                <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white hover:brightness-110 transition-all" style={{ background: "var(--green)" }}>
                   <Icon name="Plus" size={16} />
                   Добавить
                 </button>
@@ -369,7 +369,7 @@ export default function Index() {
                       <img src={pl.cover} alt={pl.name} className="w-full aspect-square object-cover" />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all" />
                       <div className="absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center play-btn-overlay shadow-xl" style={{ background: "var(--green)" }}>
-                        <Icon name="Play" size={16} className="text-black ml-0.5" />
+                        <Icon name="Play" size={16} className="text-white ml-0.5" />
                       </div>
                     </div>
                     <div className="p-3">
@@ -386,7 +386,7 @@ export default function Index() {
           {section === "favorites" && (
             <div>
               <div className="flex items-center gap-5 mb-6">
-                <div className="w-36 h-36 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #4F1B7C, #1DB954)" }}>
+                <div className="w-36 h-36 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #3b0080, #7c5cfc)" }}>
                   <Icon name="Heart" size={50} className="text-white" />
                 </div>
                 <div>
@@ -395,7 +395,7 @@ export default function Index() {
                   <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{likedTracks.length} треков</p>
                   {likedTracks.length > 0 && (
                     <button onClick={() => handleTrackClick(likedTracks[0])} className="mt-3 w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform" style={{ background: "var(--green)" }}>
-                      <Icon name="Play" size={20} className="text-black ml-0.5" />
+                      <Icon name="Play" size={20} className="text-white ml-0.5" />
                     </button>
                   )}
                 </div>
@@ -431,7 +431,7 @@ export default function Index() {
                       <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{mix.count} треков</p>
                     </div>
                     <div className="w-10 h-10 rounded-full flex items-center justify-center play-btn-overlay shrink-0" style={{ background: "var(--green)" }}>
-                      <Icon name="Play" size={14} className="text-black ml-0.5" />
+                      <Icon name="Play" size={14} className="text-white ml-0.5" />
                     </div>
                   </div>
                 ))}
@@ -494,8 +494,8 @@ export default function Index() {
             <button onClick={handlePrev} className="hover:scale-110 transition-all text-white/60 hover:text-white">
               <Icon name="SkipBack" size={22} />
             </button>
-            <button onClick={handlePlayPause} className="w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:scale-105 transition-transform bg-white">
-              <Icon name={isPlaying ? "Pause" : "Play"} size={18} className="text-black ml-0.5" />
+            <button onClick={handlePlayPause} className="w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:scale-105 transition-transform" style={{ background: "var(--green)" }}>
+              <Icon name={isPlaying ? "Pause" : "Play"} size={18} className="text-white ml-0.5" />
             </button>
             <button onClick={handleNext} className="hover:scale-110 transition-all text-white/60 hover:text-white">
               <Icon name="SkipForward" size={22} />
@@ -524,10 +524,10 @@ export default function Index() {
 }
 
 const MOODS = [
-  { id: "chill", label: "Расслабленное", emoji: "🌙", gradient: "linear-gradient(135deg, #1a1a2e, #16213e)" },
-  { id: "focus", label: "Фокус", emoji: "🎯", gradient: "linear-gradient(135deg, #0f3460, #1a1a2e)" },
-  { id: "energy", label: "Энергия", emoji: "⚡", gradient: "linear-gradient(135deg, #2d1b00, #1a0a00)" },
-  { id: "happy", label: "Радость", emoji: "☀️", gradient: "linear-gradient(135deg, #1a2e00, #0a1a00)" },
+  { id: "chill", label: "Расслабленное", emoji: "🌙", gradient: "linear-gradient(135deg, #0d0d2b, #12103a)" },
+  { id: "focus", label: "Фокус", emoji: "🎯", gradient: "linear-gradient(135deg, #0a0a20, #1a0e3a)" },
+  { id: "energy", label: "Энергия", emoji: "⚡", gradient: "linear-gradient(135deg, #1a0a2e, #2a0050)" },
+  { id: "happy", label: "Радость", emoji: "☀️", gradient: "linear-gradient(135deg, #0e0a2a, #180a40)" },
 ];
 
 function MyWave({ tracks, currentTrack, isPlaying, onTrackClick, onLike }: {
@@ -551,11 +551,11 @@ function MyWave({ tracks, currentTrack, isPlaying, onTrackClick, onLike }: {
   return (
     <div>
       {/* Шапка */}
-      <div className="rounded-2xl p-6 mb-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0f3460 0%, #1a1a2e 60%, #0a0a1a 100%)" }}>
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 70% 50%, #1DB954 0%, transparent 60%)" }} />
+      <div className="rounded-2xl p-6 mb-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0d0a2e 0%, #12103a 50%, #080818 100%)" }}>
+        <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "radial-gradient(circle at 70% 50%, #7c5cfc 0%, transparent 60%)" }} />
         <div className="relative z-10 flex items-center gap-5">
           <div className="relative">
-            <div className="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl" style={{ background: "linear-gradient(135deg, #1DB954, #0099cc)" }}>
+            <div className="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl" style={{ background: "linear-gradient(135deg, #7c5cfc, #3b82f6)" }}>
               <Icon name="Radio" size={36} className="text-white" />
             </div>
             {waveActive && (
@@ -569,7 +569,7 @@ function MyWave({ tracks, currentTrack, isPlaying, onTrackClick, onLike }: {
           </div>
           <button
             onClick={startWave}
-            className="flex items-center gap-2 px-6 py-3 rounded-full font-bold text-black text-sm hover:scale-105 transition-transform shadow-xl"
+            className="flex items-center gap-2 px-6 py-3 rounded-full font-bold text-white text-sm hover:scale-105 transition-transform shadow-xl"
             style={{ background: "var(--green)" }}
           >
             <Icon name={waveActive ? "RefreshCw" : "Play"} size={16} />

@@ -4,56 +4,56 @@
 
 @layer base {
   :root {
-    --background: 0 0% 7%;
-    --foreground: 0 0% 95%;
+    --background: 240 20% 5%;
+    --foreground: 230 30% 95%;
 
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 95%;
+    --card: 240 18% 8%;
+    --card-foreground: 230 30% 95%;
 
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 240 18% 8%;
+    --popover-foreground: 230 30% 95%;
 
-    --primary: 141 76% 48%;
-    --primary-foreground: 0 0% 7%;
+    --primary: 258 80% 65%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 240 15% 13%;
+    --secondary-foreground: 230 30% 95%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 55%;
+    --muted: 240 15% 13%;
+    --muted-foreground: 230 15% 55%;
 
-    --accent: 141 76% 48%;
-    --accent-foreground: 0 0% 7%;
+    --accent: 258 80% 65%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 95%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 141 76% 48%;
+    --border: 240 15% 16%;
+    --input: 240 15% 16%;
+    --ring: 258 80% 65%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 141 76% 48%;
-    --sidebar-primary-foreground: 0 0% 7%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 141 76% 48%;
+    --sidebar-background: 240 22% 4%;
+    --sidebar-foreground: 230 30% 95%;
+    --sidebar-primary: 258 80% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 15% 10%;
+    --sidebar-accent-foreground: 230 30% 95%;
+    --sidebar-border: 240 15% 12%;
+    --sidebar-ring: 258 80% 65%;
 
     /* Кастомные переменные */
-    --green: #1db954;
-    --green-hover: #1ed760;
-    --bg-main: #121212;
-    --bg-sidebar: #0a0a0a;
-    --bg-card: #1a1a1a;
-    --bg-card-hover: #242424;
-    --bg-player: #181818;
-    --text-primary: #f0f0f0;
-    --text-secondary: #a0a0a0;
-    --text-muted: #606060;
+    --green: #7c5cfc;
+    --green-hover: #9b7dff;
+    --bg-main: #08090f;
+    --bg-sidebar: #050608;
+    --bg-card: #0e1020;
+    --bg-card-hover: #151829;
+    --bg-player: #0a0b15;
+    --text-primary: #e8eaf6;
+    --text-secondary: #8b90b8;
+    --text-muted: #4a4f72;
   }
 }
 
@@ -124,10 +124,10 @@
 @keyframes pulse-green {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.4);
+    box-shadow: 0 0 0 0 rgba(124, 92, 252, 0.5);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(29, 185, 84, 0);
+    box-shadow: 0 0 0 8px rgba(124, 92, 252, 0);
   }
 }
 
@@ -168,7 +168,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--green);
+  background: #7c5cfc;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.15s ease;
