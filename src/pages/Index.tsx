@@ -43,7 +43,6 @@ const SECTIONS = [
   { id: "library", label: "Библиотека", icon: "Library" },
   { id: "playlists", label: "Плейлисты", icon: "ListMusic" },
   { id: "favorites", label: "Избранное", icon: "Heart" },
-  { id: "recommendations", label: "Рекомендации", icon: "Sparkles" },
   { id: "history", label: "История", icon: "History" },
 ];
 
@@ -411,35 +410,6 @@ export default function Index() {
           )}
 
           {/* RECOMMENDATIONS */}
-          {section === "recommendations" && (
-            <div>
-              <h1 className="text-3xl font-bold mb-2 text-white">Рекомендации</h1>
-              <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>Подобрано специально для тебя</p>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-8">
-                {[
-                  { title: "Ночное настроение", desc: "На основе твоих любимых", cover: COVERS.purple, count: 8 },
-                  { title: "Новинки недели", desc: "Свежие релизы", cover: COVERS.green, count: 12 },
-                  { title: "Глубокий фокус", desc: "Музыка для продуктивности", cover: COVERS.cyan, count: 15 },
-                  { title: "Энергетика", desc: "Поднять настроение", cover: COVERS.amber, count: 10 },
-                ].map((mix) => (
-                  <div key={mix.title} className="group flex items-center gap-4 rounded-xl p-4 cursor-pointer card-hover" style={{ background: "var(--bg-card)" }} onClick={() => handleTrackClick(DEMO_TRACKS[0])}>
-                    <img src={mix.cover} alt={mix.title} className="w-20 h-20 rounded-lg object-cover shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-white">{mix.title}</p>
-                      <p className="text-sm mt-0.5" style={{ color: "var(--text-muted)" }}>{mix.desc}</p>
-                      <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{mix.count} треков</p>
-                    </div>
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center play-btn-overlay shrink-0" style={{ background: "var(--green)" }}>
-                      <Icon name="Play" size={14} className="text-white ml-0.5" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <h2 className="text-xl font-bold mb-4 text-white">Возможно, понравится</h2>
-              <TrackList tracks={DEMO_TRACKS} currentTrack={currentTrack} isPlaying={isPlaying} onTrackClick={handleTrackClick} onLike={toggleLike} />
-            </div>
-          )}
-
           {/* HISTORY */}
           {section === "history" && (
             <div>
